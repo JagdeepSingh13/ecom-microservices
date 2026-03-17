@@ -8,6 +8,3 @@
 /dataSources.local.xml
 # Editor-based HTTP Client requests
 /httpRequests/
-order/.env
-product/.env
-user/.env
