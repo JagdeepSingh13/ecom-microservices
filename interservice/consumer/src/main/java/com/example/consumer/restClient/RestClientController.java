@@ -11,7 +11,8 @@ import org.springframework.web.client.RestClient;
 @RequiredArgsConstructor
 public class RestClientController {
 
-    private ProviderRestClient providerRestClient;
+//    use final with req args cons.
+    private final ProviderRestClient providerRestClient;
 
     @GetMapping("/instance")
     public String getInstance() {
