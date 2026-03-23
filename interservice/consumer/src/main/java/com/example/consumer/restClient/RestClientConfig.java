@@ -1,5 +1,6 @@
 package com.example.consumer.restClient;
 
+import org.springframework.cloud.client.loadbalancer.LoadBalanced;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.web.client.RestClient;
@@ -8,8 +9,9 @@ import org.springframework.web.client.RestClient;
 public class RestClientConfig {
 
     @Bean
+    @LoadBalanced
     public RestClient restClient() {
-        return RestClient.builder().baseUrl("http://localhost:8081").build();
+        return RestClient.builder().baseUrl("http://provider").build();
     }
 
 }
