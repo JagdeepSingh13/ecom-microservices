@@ -2,8 +2,10 @@ package com.ecom.order.service;
 
 //import com.ecom.order.clients.ProductServiceClient;
 import com.ecom.order.clients.ProductServiceClient;
+import com.ecom.order.clients.UserServiceClient;
 import com.ecom.order.dto.CartItemRequest;
 import com.ecom.order.dto.ProductResponse;
+import com.ecom.order.dto.UserResponse;
 import com.ecom.order.model.CartItem;
 import com.ecom.order.repositories.CartItemRepository;
 import jakarta.transaction.Transactional;
@@ -23,6 +25,7 @@ public class CartService {
 //    private final ProductRepository productRepository;
 //    private final UserRepository userRepository;
     private final ProductServiceClient productServiceClient;
+    private final UserServiceClient userServiceClient;
 
     public boolean addToCart(String userId, CartItemRequest request) {
 //        Look for product
@@ -32,12 +35,11 @@ public class CartService {
 
         if(productResponse.getStockQuantity() < request.getQuantity())
             return false;
-//
-//        Optional<User> userOpt = userRepository.findById(Long.valueOf(userId));
-//        if(userOpt.isEmpty())
-//            return false;
-//
-//        User user = userOpt.get();
+
+//        Look for user
+        UserResponse userResponse = userServiceClient.getUserDetails(userId);
+        if(userResponse == null)
+            return false;
 
 //        to check if product already exists in cart
         CartItem existingCartItem = cartItemRepository.findByUserIdAndProductId(userId, request.getProductId());
